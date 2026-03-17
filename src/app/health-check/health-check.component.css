@@ -70,7 +70,7 @@
 .check-header,
 .check-row {
   display: grid;
-  grid-template-columns: 60px 1fr 60px 2fr 80px 2fr;
+  grid-template-columns: 60px 1fr;
   align-items: center;
   padding: 0.5rem 0.75rem;
   gap: 0.5rem;
@@ -97,44 +97,21 @@
   font-size: 1rem;
 }
 
-.status-pass {
+.status-live {
   color: var(--sl-app-color-success);
 }
 
-.status-fail,
-.status-error {
+.status-down {
   color: var(--sl-app-color-error);
 }
 
-.status-running {
-  color: var(--sl-app-color-accent);
+.summary.error {
+  color: var(--sl-app-color-error);
 }
 
-.status-pending {
+.latency {
   color: var(--sl-app-color-text-muted);
-}
-
-.method-badge {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--sl-app-color-text-muted);
-}
-
-.mono {
-  font-family: "Consolas", "Courier New", monospace;
-  font-size: 0.8rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.col-message {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: var(--sl-app-color-text-muted);
-  font-size: 0.85rem;
+  font-weight: 400;
 }
 
 .check-row.fail .col-message,

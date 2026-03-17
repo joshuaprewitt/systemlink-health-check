@@ -2,53 +2,43 @@
   <header class="app-header">
     <div>
       <h1>SystemLink Health Check</h1>
-      <p>Self-test all SystemLink API services</p>
+      <p>Service registry status</p>
     </div>
     <div class="header-actions">
       <nimble-button
         appearance="outline"
         [disabled]="isRunning"
-        (click)="runAllChecks()"
-        ><span class="button-content"><nimble-icon-arrows-repeat class="button-icon"></nimble-icon-arrows-repeat><span>Run All</span></span></nimble-button
+        (click)="fetchServices()"
+        ><span class="button-content"><nimble-icon-arrows-repeat class="button-icon"></nimble-icon-arrows-repeat><span>Refresh</span></span></nimble-button
       >
     </div>
   </header>
 
   <section class="status-row">
-    <span *ngIf="lastRun" class="summary" [class.all-pass]="summary.startsWith('All')">
+    <span *ngIf="lastRun && !errorMessage" class="summary" [class.all-pass]="summary.startsWith('All')">
       {{ summary }} — last run {{ lastRun }}
+      <span *ngIf="latencyMs !== null" class="latency">({{ latencyMs }} ms)</span>
     </span>
-    <span *ngIf="isRunning" class="summary running">Running checks...</span>
+    <span *ngIf="errorMessage" class="summary error">{{ summary }}: {{ errorMessage }}</span>
+    <span *ngIf="isRunning" class="summary running">Fetching service registry...</span>
   </section>
 
-  <section class="checks-grid">
+  <section *ngIf="services.length" class="checks-grid">
     <div class="check-header">
       <span class="col-status">Status</span>
       <span class="col-name">Service</span>
-      <span class="col-method">Method</span>
-      <span class="col-endpoint">Endpoint</span>
-      <span class="col-latency">Latency</span>
-      <span class="col-message">Details</span>
     </div>
 
     <div
-      *ngFor="let check of checks"
+      *ngFor="let svc of services"
       class="check-row"
-      [class.pass]="check.status === 'pass'"
-      [class.fail]="check.status === 'fail'"
-      [class.error]="check.status === 'error'"
-      [class.running]="check.status === 'running'"
+      [class.live]="svc.status === 'LIVE'"
+      [class.down]="svc.status !== 'LIVE'"
     >
-      <span class="col-status status-icon" [class]="'status-' + check.status">
-        {{ statusIcon(check.status) }}
+      <span class="col-status status-icon" [class.status-live]="svc.status === 'LIVE'" [class.status-down]="svc.status !== 'LIVE'">
+        {{ statusIcon(svc.status) }}
       </span>
-      <span class="col-name">{{ check.name }}</span>
-      <span class="col-method method-badge">{{ check.method }}</span>
-      <span class="col-endpoint mono">{{ check.endpoint }}</span>
-      <span class="col-latency">
-        {{ check.latencyMs !== null ? check.latencyMs + ' ms' : '' }}
-      </span>
-      <span class="col-message" [title]="check.message">{{ check.message }}</span>
+      <span class="col-name">{{ svc.name }}</span>
     </div>
   </section>
 </div>
