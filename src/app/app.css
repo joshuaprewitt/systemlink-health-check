@@ -1,0 +1,22 @@
+:host {
+	display: block;
+	height: 100vh;
+}
+
+nimble-theme-provider {
+	display: block;
+	height: 100%;
+	background: var(--ni-nimble-application-background-color);
+	color: var(--ni-nimble-body-font-color);
+
+	--sl-app-color-bg: var(--ni-nimble-application-background-color);
+	--sl-app-color-surface: var(--ni-nimble-section-background-color);
+	--sl-app-color-surface-alt: var(--ni-nimble-header-background-color);
+	--sl-app-color-border: var(--ni-nimble-divider-background-color);
+	--sl-app-color-border-strong: var(--ni-nimble-popup-border-color);
+	--sl-app-color-text: var(--ni-nimble-body-font-color);
+	--sl-app-color-text-muted: var(--ni-nimble-placeholder-font-color);
+	--sl-app-color-accent: var(--ni-nimble-button-fill-primary-color);
+	--sl-app-color-success: var(--ni-nimble-pass-color);
+	--sl-app-color-error: var(--ni-nimble-fail-color);
+}
