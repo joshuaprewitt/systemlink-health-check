@@ -33,9 +33,10 @@
       *ngFor="let svc of services"
       class="check-row"
       [class.live]="svc.status === 'LIVE'"
-      [class.down]="svc.status !== 'LIVE'"
+      [class.unknown]="svc.status === 'UNKNOWN'"
+      [class.down]="svc.status !== 'LIVE' && svc.status !== 'UNKNOWN'"
     >
-      <span class="col-status status-icon" [class.status-live]="svc.status === 'LIVE'" [class.status-down]="svc.status !== 'LIVE'">
+      <span class="col-status status-icon" [class.status-live]="svc.status === 'LIVE'" [class.status-unknown]="svc.status === 'UNKNOWN'" [class.status-down]="svc.status !== 'LIVE' && svc.status !== 'UNKNOWN'">
         {{ statusIcon(svc.status) }}
       </span>
       <span class="col-name">{{ svc.name }}</span>

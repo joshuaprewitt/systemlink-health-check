@@ -75,16 +75,25 @@ export class HealthCheckComponent implements OnInit {
       return;
     }
     const live = this.services.filter((s) => s.status === 'LIVE').length;
+    const unknown = this.services.filter((s) => s.status === 'UNKNOWN').length;
+    const down = this.services.length - live - unknown;
     const total = this.services.length;
     if (live === total) {
       this.summary = `All ${total} services LIVE`;
     } else {
-      this.summary = `${live}/${total} LIVE, ${total - live} issue(s)`;
+      const parts: string[] = [`${live}/${total} LIVE`];
+      if (unknown) parts.push(`${unknown} unknown`);
+      if (down) parts.push(`${down} down`);
+      this.summary = parts.join(', ');
     }
   }
 
   statusIcon(status: string): string {
-    return status === 'LIVE' ? '✓' : '✗';
+    switch (status) {
+      case 'LIVE': return '✓';
+      case 'UNKNOWN': return '?';
+      default: return '✗';
+    }
   }
 
   private syncView(): void {

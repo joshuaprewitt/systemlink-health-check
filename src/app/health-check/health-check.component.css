@@ -101,6 +101,10 @@
   color: var(--sl-app-color-success);
 }
 
+.status-unknown {
+  color: var(--sl-app-color-text-muted);
+}
+
 .status-down {
   color: var(--sl-app-color-error);
 }
