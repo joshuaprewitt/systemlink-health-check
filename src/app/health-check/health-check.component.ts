@@ -6,6 +6,7 @@ import {
   inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import packageJson from '../../../package.json';
 
 export interface ServiceStatus {
   name: string;
@@ -29,6 +30,7 @@ export class HealthCheckComponent implements OnInit {
   latencyMs: number | null = null;
   summary = '';
   errorMessage = '';
+  version = packageJson.version;
 
   ngOnInit(): void {
     this.fetchServices();
