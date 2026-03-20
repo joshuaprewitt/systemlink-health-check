@@ -1,6 +1,6 @@
 {
   "name": "systemlink-health-check",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "SystemLink API Health Check — self-test all SL services",
   "scripts": {
     "ng": "ng",
